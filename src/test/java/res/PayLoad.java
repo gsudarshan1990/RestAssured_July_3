@@ -48,6 +48,23 @@ public class PayLoad {
 		return createIssue;
 		
 	}
+	public static CreateIssue issueCreate(String sum,String des) {
+		Project project= new  Project();
+		project.setKey("SG");
+		IssueType issuetype= new  IssueType();
+		issuetype.setName("Bug");
+		
+		Fields fields = new Fields();
+		fields.setProject(project);
+		fields.setSummary(sum);
+		fields.setDescription(des);
+		fields.setIssuetype(issuetype);
+		
+		CreateIssue createIssue= new CreateIssue();
+		createIssue.setFields(fields);
+		return createIssue;
+		
+	}
 
 	public static String updateIssue() {
 		return "{\r\n" + "    \"fields\" : {\r\n" + "        \"summary\": \"Login in Swiggy not working\",\r\n"
@@ -58,6 +75,15 @@ public class PayLoad {
 		UpdateIssueFields issueFileds= new UpdateIssueFields();
 		issueFileds.setSummary("Payment still not working");
 		issueFileds.setDescription("Debit card cant done");
+		
+		UpdateRoot rd= new UpdateRoot();
+		rd.setFields(issueFileds);
+		return rd;
+	}
+	public static UpdateRoot issueUpdate(String s,String ds) {
+		UpdateIssueFields issueFileds= new UpdateIssueFields();
+		issueFileds.setSummary(s);
+		issueFileds.setDescription(ds);
 		
 		UpdateRoot rd= new UpdateRoot();
 		rd.setFields(issueFileds);

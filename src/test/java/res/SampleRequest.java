@@ -8,6 +8,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import io.restassured.RestAssured;
+import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import io.restassured.response.ResponseBody;
 
@@ -20,6 +21,25 @@ public class SampleRequest extends BaseClass {
 				.get("api/users");
 		System.out.println("Response Code...." + getStatusCode(re));
 		System.out.println("Response Body...." + getResponseBody(re));
+		
+		
+		
+//		read body using json Path
+		JsonPath j= new JsonPath(getResponseBody(re));
+		String st = j.get("page").toString();
+		System.out.println(st);
+		
+		System.out.println(j.get("data").toString());
+		System.out.println(j.get("data[0]").toString());
+		System.out.println(j.get("data[0].id").toString());
+		System.out.println(j.get("data.id[0]").toString());
+		
+		
+		
+		
+		
+		
+		
 
 		System.out.println("============POST=============");
 		Response post = RestAssured.given().header("Content-Type", "application/json").body(PayLoad.createUser())
@@ -35,6 +55,8 @@ public class SampleRequest extends BaseClass {
 		String name = getJSONValue(getResponseBody(post), "name");
 		System.out.println(name);
 		System.out.println(getJSONValue(getResponseBody(post), "job"));
+		
+		
 
 		System.out.println("============PUT=============");
 		Response put = RestAssured.given().header("Content-Type", "application/json").body(PayLoad.updateUser(name))
